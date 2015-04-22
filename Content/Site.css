@@ -1,0 +1,79 @@
+﻿html, body{
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.tasks {
+    padding: 48px;
+    background-color: #000;
+    color: #fff;
+}
+
+    .tasks h1 {
+        font-size: 48px;
+    }
+
+    .tasks h2 {
+        font-size: 36px;
+    }
+
+    .tasks h3 {
+        font-size: 30px;
+    }
+
+    .tasks h4 {
+        font-size: 24px;
+    }
+
+.total-tasks {
+    color: #fff;
+}
+
+.marathon-tasks :first-child {
+    color: #ff006e;
+}
+
+.spark-tasks :first-child {
+    color: #00ff21;
+}
+
+.cassandra-tasks :first-child {
+    color: #ffd800;
+}
+
+#canvas1{
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-padding{
+    padding: 45px;
+}
+
+.fill-height { 
+    min-height: 97%;
+    height: 97%;
+}
+
+.container{
+    max-width: none;
+}

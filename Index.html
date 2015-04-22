@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cluster Visualization</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <script src="Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="container body-content fill-height">
+        <div class="container fill-height">
+            <div class="col-md-3 tasks fill-height">
+                <div class="row">
+                    Simulate <br />
+                    <button id="add_task" class="btn btn-success">Add task</button>
+                    <button id="remove_task" class="btn btn-danger">Remove task</button>
+                </div>
+                <div class="row total-tasks">
+                    <h1>0</h1>
+                    <h2>Total Tasks</h2>
+                </div>
+
+                <div class="row marathon-tasks">
+                    <h3>0</h3>
+                    <h4>marathon-tasks</h4>
+                </div>
+
+                <div class="row spark-tasks">
+                    <h3>0</h3>
+                    <h4>spark-tasks</h4>
+                </div>
+
+                <div class="row cassandra-tasks">
+                    <h3>0</h3>
+                    <h4>cassandra-tasks</h4>
+                </div>
+
+            </div>
+            <div class="col-md-9 fill-height canvas-padding">
+                <canvas id="canvas1"></canvas>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Microsoft</p>
+        </footer>
+    </div>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/app.js"></script>
+</body>
+</html>
