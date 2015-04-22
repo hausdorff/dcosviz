@@ -1,4 +1,8 @@
-﻿$().ready(function () {
+﻿MESOS_MASTER = "http://srv6.hw.ca1.mesosphere.com:5050/"
+REFRESH = true;
+INTERVAL = 2000;
+
+$().ready(function () {
 
     $(window).resize(function () {
         renderBlocks();
@@ -9,6 +13,26 @@
     // 3 = cassandra
     var taskTotals = { marathon: 0, spark: 0, cassandra: 0 };
     var tasks = [];
+
+    var url = MESOS_MASTER + "state.json"
+
+    var STATE = [];
+
+    var fetchState = function(cb) {
+        $.getJSON(url + "?jsonp=?", function(data) {
+            var tasks = _.map(data.frameworks, function(fw) {
+                return {
+                    "name": fw.name.split("-")[0],
+                    "task_count": fw.tasks ? fw.tasks.length : 0
+                };
+            });
+
+            STATE.shift();
+            STATE.push(tasks);
+
+            _.delay(cb, INTERVAL);
+        }.bind(this));
+    };
 
     $("#add_task").on('click', function () {
         if (event.shiftKey === true) {
@@ -141,6 +165,14 @@
         }
     }
 
+    async.whilst(
+        function() { return REFRESH }.bind(this),
+        fetchState,
+        function() { }
+    );
+
     //createSample();
     renderBlocks();
+
+    window.foo = addRandomTask;
 });
