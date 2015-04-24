@@ -1,4 +1,4 @@
-﻿MESOS_MASTER = "http://srv6.hw.ca1.mesosphere.com:5050/"
+﻿MESOS_MASTER = "http://demo-bliss.mesosphere.com:5050/"
 
 REFRESH = true;
 INTERVAL = 2000;
@@ -20,40 +20,20 @@ $().ready(function () {
 
     var fetchState = function (cb) {
 
-        $.jsonp({
-            url: url + "?jsonp=?",
-            done: function (data) {
-                var tasks = _.map(data.frameworks, function (fw) {
-                    var len = fw.tasks ? _.filter(fw.tasks, function (t) { return t.state == "TASK_RUNNING" }).length : 0;
-                    return {
-                        "name": fw.name.split("-")[0],
-                        "task_count": len
-                    };
-                });
+        $.getJSON(url + "?jsonp=?")
+           .done(function (data) {
+               var tasks = _.map(data.frameworks, function (fw) {
+                   var len = fw.tasks ? _.filter(fw.tasks, function (t) { return t.state == "TASK_RUNNING" }).length : 0;
+                   return {
+                       "name": fw.name.split("-")[0],
+                       "task_count": len
+                   };
+               });
 
-                setState(tasks);
-            },
-            error: function (data) {
-
-            },
-            complete: function (data) {
-                renderBlocks();
-            }
-        });
-
-        //$.getJSON(url + "?jsonp=?")
-        //    .done(function (data) {
-        //        var tasks = _.map(data.frameworks, function (fw) {
-        //            var len = fw.tasks ? _.filter(fw.tasks, function (t) { return t.state == "TASK_RUNNING" }).length : 0;
-        //            return {
-        //                "name": fw.name.split("-")[0],
-        //                "task_count": len
-        //            };
-        //        });
-        //        STATE.shift();
-        //        STATE.push(tasks);
-        //        _.delay(cb, INTERVAL);
-        //    }.bind(this));
+               setState(tasks);
+               renderBlocks();
+               _.delay(cb, INTERVAL);
+           }.bind(this));
     };
 
     $("#set_taskstate").on('click', function () {
@@ -93,6 +73,7 @@ $().ready(function () {
         } else {
             // delta algorithm
             _.each(tasks, function (v, i) {
+
                 var node = _.find(STATE_META, function (v2) { return v2.name === v.name });
                 if (!node) {
                     // push, but we have a color problem
